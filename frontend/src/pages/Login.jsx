@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/actions/AuthAction";
 import { toast } from "react-toastify";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [frmData, setFrmData] = useState({ emailid: "", password: "" });
@@ -10,10 +11,12 @@ const Login = () => {
   const { user, message, error } = useSelector((state) => state.userAuth);
 
   const dispatch = useDispatch();
+  const navigate=useNavigate();
 
   useEffect(() => {
     if (user) {
       toast.success(message);
+      navigate("/vendor/dashboard")
     } else {
       toast.error(error);
     }

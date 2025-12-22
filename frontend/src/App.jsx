@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -7,6 +7,8 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import ErrorPage from "./utils/ErrorPage";
+import VendorStore from "./components/vendor/VendorStore";
+import VendorDashboard from "./components/vendor/VendorDashboard";
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/register" element={<Register defaultRole="buyer" />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/register/:role" element={<Register />} />
+            <Route path="/vendor/dashboard" element={<VendorDashboard/>} />
+             <Route path="/vendor/newstore" element={<VendorStore/>}/>
           </Route>
           <Route path="/unauthorized" element={<ErrorPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
