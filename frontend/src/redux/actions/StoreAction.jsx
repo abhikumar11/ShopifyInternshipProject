@@ -4,7 +4,7 @@ import { CREATE_STORE_REQUEST,CREATE_STORE_SUCCESS,CREATE_STORE_FAIL } from "../
 export const createStore=(formdata)=>async(dispatch)=>{
     try {
             dispatch({type:CREATE_STORE_REQUEST})
-            const {data,status}=await axios.post("",formdata);
+            const {data,status}=await axios.post("http://localhost:3001/api/vendor/newstore",formdata);
             if(status==201){
                 dispatch({type:CREATE_STORE_SUCCESS,payload:data});
             }

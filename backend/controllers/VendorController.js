@@ -10,10 +10,13 @@ const createStore=async(req,res)=>{
                         ownerId:req.user.userid
               });
               if(temp){
-                res.status(201).send(temp);
+                res.status(201).json({msg:"Store Created",status:temp.status});
+              }
+              else{
+                res.status(400).json({msg:"Unable to create store"})
               }
         }catch(err){
-                res.status(500).send(err);
+                res.status(500).send({msg:"Something went wrong"});
         }
 }
 module.exports={createStore}
