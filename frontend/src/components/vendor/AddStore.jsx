@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createStore } from '../../redux/actions/StoreAction';
+import { useDispatch,useSelector} from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+const AddStore = () => {
 
-const VendorStore = () => {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+  const {loading,success,error,message}=useSelector((state)=>state.vendorStore);
+  useEffect(()=>{
+    if(success){
+      toast.success(message);
+      navigate("/vendor/dashboard");
+    }
+    else{
+      toast.error(message);
+    }
+  },[loading,error,message]);
   const [frmData, setFrmData] = useState({ storeName: "", description: "", logo: "" });
-
+  
   const handleInput = (e) => {
     setFrmData({ ...frmData, [e.target.name]: e.target.value });
   };
@@ -10,6 +26,7 @@ const VendorStore = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(frmData);
+    dispatch(createStore(frmData));
   };
 
   return (
@@ -26,8 +43,6 @@ const VendorStore = () => {
 
         <div className="bg-white rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)] border border-[#e1e3e5] overflow-hidden">
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
-            
-            {/* Store Name */}
             <div>
               <label className="block text-sm font-semibold text-[#202223] mb-1.5">
                 Store Name
@@ -41,8 +56,6 @@ const VendorStore = () => {
                 className="w-full h-11 px-4 bg-white border border-[#babfc3] rounded-lg text-sm transition-all focus:outline-none focus:border-[#008060] focus:ring-[3px] focus:ring-[#0080601a] hover:border-[#8c9196]"
               />
             </div>
-
-            {/* Logo Section with Live Preview */}
             <div className="grid grid-cols-1 sm:grid-cols-[1fr_80px] gap-4 items-end">
               <div>
                 <label className="block text-sm font-semibold text-[#202223] mb-1.5">
@@ -57,8 +70,6 @@ const VendorStore = () => {
                   className="w-full h-11 px-4 bg-white border border-[#babfc3] rounded-lg text-sm transition-all focus:outline-none focus:border-[#008060] focus:ring-[3px] focus:ring-[#0080601a] hover:border-[#8c9196]"
                 />
               </div>
-              
-              {/* Modern Logo Preview Box */}
               <div className="h-[44px] w-[80px] bg-[#f1f2f3] rounded-lg border-2 border-dashed border-[#dfe3e8] flex items-center justify-center overflow-hidden">
                 {frmData.logo ? (
                   <img src={frmData.logo} alt="Preview" className="h-full w-full object-contain p-1" />
@@ -67,8 +78,6 @@ const VendorStore = () => {
                 )}
               </div>
             </div>
-
-            {/* Description */}
             <div>
               <label className="block text-sm font-semibold text-[#202223] mb-1.5">
                 Store Description
@@ -94,7 +103,6 @@ const VendorStore = () => {
             </button>
           </form>
 
-          {/* Bottom Action Bar */}
           <div className="bg-[#f9fafb] border-t border-[#e1e3e5] px-8 py-4">
             <p className="text-center text-xs text-[#6d7175]">
               By clicking Create Store, you agree to the 
@@ -107,4 +115,4 @@ const VendorStore = () => {
   );
 };
 
-export default VendorStore;
+export default AddStore;
