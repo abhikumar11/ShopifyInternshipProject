@@ -1,5 +1,4 @@
-import { CREATE_USER_FAIL, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS,LOGOUT } from "../constatnts";
-
+import { CREATE_USER_FAIL, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "../constants";
 
 const initialState = {
   loading: false,
@@ -27,6 +26,7 @@ const AuthReducer = (state = initialState, action) => {
       };
 
     case LOGIN_SUCCESS:
+     
       return {
         ...state,
         loading: false,
@@ -47,6 +47,8 @@ const AuthReducer = (state = initialState, action) => {
       };
 
     case LOGOUT:
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         user: null,

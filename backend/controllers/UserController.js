@@ -11,7 +11,7 @@ const logiUser = async(req, res) => {
         if(user){
             const hashPass=await bcrypt.compare(password,user.password);
             if(hashPass){
-                const userdata={userid:user._id,name:user.name,role:user.role}
+                const userdata={userid:user._id,name:user.name,role:user.role,emailid:user.emailid}
                 const token= jwt.sign({user:userdata},process.env.SECRETKEY,{expiresIn:"1h"});
                  res.status(201).send({user:userdata,token:token,msg: "User login successfull" });
             }

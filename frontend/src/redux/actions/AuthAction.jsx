@@ -1,4 +1,4 @@
-import { CREATE_USER_FAIL, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "../constatnts"
+import { CREATE_USER_FAIL, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "../constants"
 import axios from "axios";
 export const registerUser = (formdata) => async (dispatch) => {
   try {
@@ -17,18 +17,17 @@ export const registerUser = (formdata) => async (dispatch) => {
 };
 export const loginUser=(formdata)=>async(dispatch)=>{
       try {
-         dispatch({ type:LOGIN_REQUEST});
-         const {data,status}=await axios.post("http://localhost:3001/api/auth/login",formdata);
-         if (status ===201&&data.user) {
-          console.log(data.user);
-          localStorage.setItem("token",data.token);
-          dispatch({type:LOGIN_SUCCESS,payload: data});
-      
+    dispatch({ type: LOGIN_REQUEST });
+    const { data, status } = await axios.post("http://localhost:3001/api/auth/login", formdata);
+
+    if (status === 201 && data.user) {
+      localStorage.setItem("token", data.token);
+
+      dispatch({ type: LOGIN_SUCCESS, payload: data });
     } else {
-      dispatch({type: LOGIN_FAIL,payload: data.msg});
-      console.log(data.msg)
+      dispatch({ type: LOGIN_FAIL, payload: data.msg });
     }
-      } catch (err) {
-        dispatch({type:LOGIN_FAIL,payload:err.response?.data?.msg||err.message});
-      }
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL, payload: err.response?.data?.msg || err.message });
+  }
 }

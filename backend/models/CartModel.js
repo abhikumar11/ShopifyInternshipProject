@@ -1,4 +1,3 @@
-// Cart Schema
 const cartSchema = new mongoose.Schema({
     customerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     items: [{

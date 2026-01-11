@@ -48,4 +48,20 @@ const editCategory=async(req,res)=>{
              res.status(500).json({msg:"Something went wrong"});
     }
 }
-module.exports={addCategory,getAllCategory,editCategory};
+const deleteCategory=async(req,res)=>{
+        try{
+       
+        const cat=await CategoryModel.findByIdAndDelete(req.params.id);
+        if(cat){
+            res.status(200).json({msg:"Category deleted"});
+        }
+        else{
+             res.status(401).json({msg:"Unable to delete the category"});
+        }
+    }catch(err){
+             res.status(500).json({msg:"Something went wrong"});
+    }
+}
+
+
+module.exports={addCategory,getAllCategory,editCategory,deleteCategory};

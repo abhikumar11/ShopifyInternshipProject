@@ -14,10 +14,19 @@ const Login = () => {
   const navigate=useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (user&&user.role=="vendor") {
       toast.success(message);
       navigate("/vendor/dashboard")
-    } else {
+    } 
+    else if (user&&user.role=="admin") {
+      toast.success(message);
+      navigate("/admin/dashboard")
+    } 
+    else if (user&&user.role=="buyer") {
+      toast.success(message);
+      navigate("/")
+    } 
+    else {
       toast.error(error);
     }
   }, [user, error, message]);

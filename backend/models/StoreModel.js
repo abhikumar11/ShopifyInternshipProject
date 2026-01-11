@@ -4,6 +4,7 @@ const storeSchema = new mongoose.Schema({
      storeName: { type: String, required: true },
      description: String,
      logo: String,
+     banner:String,
      status: {
           type: String,
           enum: ["pending", "approved", "rejected", "disabled"],
